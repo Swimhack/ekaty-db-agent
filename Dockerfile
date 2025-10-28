@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libzip-dev \
     libpq-dev \
+    libsqlite3-dev \
     cron \
     && docker-php-ext-install zip pdo pdo_sqlite pdo_pgsql \
     && apt-get clean \
