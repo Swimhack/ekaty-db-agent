@@ -21,9 +21,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /app
 
 # Copy composer files
-COPY composer.json composer.lock ./
+COPY composer.json ./
 
-# Install PHP dependencies
+# Install PHP dependencies (generate composer.lock during build)
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Copy application files
