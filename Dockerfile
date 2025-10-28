@@ -46,5 +46,9 @@ RUN echo "0 3 * * * cd /app && php bin/agent sync >> /app/logs/cron.log 2>&1" > 
 HEALTHCHECK --interval=1h --timeout=30s --start-period=5s --retries=3 \
     CMD php bin/agent health || exit 1
 
+# Create startup script
+RUN echo '#!/bin/bash\n\nset -e\n\necho "Starting eKaty Agent..."\n\n# Run initial sync\necho "Running initial sync..."\nphp /app/bin/agent sync\n\n# Start cron in foreground\necho "Starting cron daemon..."\ncron -f' > /start.sh \
+    && chmod +x /start.sh
+
 # Default command
-CMD ["php", "bin/agent", "sync"]
+CMD ["/start.sh"]
