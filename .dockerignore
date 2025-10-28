@@ -1,33 +1,33 @@
 # flyctl launch added from .gitignore
 # Environment
-**\.env
-**\.env.local
-**\.env.*.local
+**/.env
+**/.env.local
+**/.env.*.local
 
 # Dependencies
 vendor
-**\composer.lock
+**/composer.lock
 
 # Data
 data
-**\*.db
-**\*.sqlite
+**/*.db
+**/*.sqlite
 
 # Logs
 logs
-**\*.log
+**/*.log
 
 # IDE
-**\.idea
-**\.vscode
-**\*.swp
-**\*.swo
-**\*~
+**/.idea
+**/.vscode
+**/*.swp
+**/*.swo
+**/*~
 
 # OS
-**\.DS_Store
-**\Thumbs.db
-**\desktop.ini
+**/.DS_Store
+**/Thumbs.db
+**/desktop.ini
 
 # Build
 build
@@ -35,6 +35,6 @@ dist
 
 # Temp
 tmp
-**\*.tmp
-**\*.cache
+**/*.tmp
+**/*.cache
 fly.toml
