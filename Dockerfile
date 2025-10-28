@@ -47,7 +47,7 @@ HEALTHCHECK --interval=1h --timeout=30s --start-period=5s --retries=3 \
     CMD php bin/agent health || exit 1
 
 # Create startup script
-RUN echo '#!/bin/bash\n\nset -e\n\necho "Starting eKaty Agent..."\n\n# Run initial sync\necho "Running initial sync..."\nphp /app/bin/agent sync\n\n# Start cron in foreground\necho "Starting cron daemon..."\ncron -f' > /start.sh \
+RUN echo '#!/bin/bash\n\nset -e\n\necho "Starting eKaty Agent..."\n\n# Check if API key is set\nif [ -z "$GOOGLE_PLACES_API_KEY" ]; then\n  echo "WARNING: GOOGLE_PLACES_API_KEY not set. Skipping initial sync."\nelse\n  echo "Running initial sync..."\n  php /app/bin/agent sync || echo "Initial sync failed, continuing..."\nfi\n\n# Start cron in foreground\necho "Starting cron daemon..."\ncron -f' > /start.sh \
     && chmod +x /start.sh
 
 # Default command
