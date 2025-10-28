@@ -14,10 +14,10 @@ class PlacesClient
     private int $rateLimitDelay;
 
     // Google Places API endpoints
-    private const BASE_URL = 'https://maps.googleapis.com/maps/api/place';
-    private const NEARBY_SEARCH = '/nearbysearch/json';
-    private const PLACE_DETAILS = '/details/json';
-    private const PHOTO = '/photo';
+    private const BASE_URL = 'https://maps.googleapis.com/maps/api';
+    private const NEARBY_SEARCH = '/place/nearbysearch/json';
+    private const PLACE_DETAILS = '/place/details/json';
+    private const PHOTO = '/place/photo';
 
     public function __construct(
         string $apiKey,
