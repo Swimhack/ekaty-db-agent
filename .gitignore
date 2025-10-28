@@ -1,0 +1,38 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+/vendor/
+composer.lock
+
+# Data
+/data/
+*.db
+*.sqlite
+
+# Logs
+/logs/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build
+/build/
+/dist/
+
+# Temp
+/tmp/
+*.tmp
+*.cache

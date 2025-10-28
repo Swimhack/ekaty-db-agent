@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  ekaty-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ekaty-agent
+    restart: unless-stopped
+    
+    # Environment variables from .env file
+    env_file:
+      - .env
+    
+    # Additional environment overrides
+    environment:
+      - APP_ENV=production
+      - TIMEZONE=America/Chicago
+    
+    # Persistent volumes
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "php", "bin/agent", "health"]
+      interval: 1h
+      timeout: 30s
+      retries: 3
+      start_period: 10s
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M

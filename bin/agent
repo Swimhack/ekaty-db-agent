@@ -1,0 +1,42 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Dotenv\Dotenv;
+use EkatyAgent\Console\Application;
+
+// Load environment variables
+$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv->safeLoad();
+
+// Build configuration from environment
+$config = [
+    'google_api_key' => $_ENV['GOOGLE_PLACES_API_KEY'] ?? '',
+    'db_type' => $_ENV['DB_TYPE'] ?? 'sqlite',
+    'db_path' => $_ENV['DB_PATH'] ?? './data/ekaty.db',
+    'db_host' => $_ENV['DB_HOST'] ?? null,
+    'db_port' => $_ENV['DB_PORT'] ?? 5432,
+    'db_name' => $_ENV['DB_NAME'] ?? null,
+    'db_user' => $_ENV['DB_USER'] ?? null,
+    'db_pass' => $_ENV['DB_PASS'] ?? null,
+    'location_lat' => $_ENV['LOCATION_LAT'] ?? 29.7858,
+    'location_lng' => $_ENV['LOCATION_LNG'] ?? -95.8245,
+    'search_radius' => $_ENV['SEARCH_RADIUS'] ?? 15000,
+    'search_type' => $_ENV['SEARCH_TYPE'] ?? 'restaurant',
+    'sync_enabled' => filter_var($_ENV['SYNC_ENABLED'] ?? true, FILTER_VALIDATE_BOOLEAN),
+    'rate_limit_delay' => $_ENV['RATE_LIMIT_DELAY'] ?? 100,
+    'max_retries' => $_ENV['MAX_RETRIES'] ?? 3,
+    'retry_delay' => $_ENV['RETRY_DELAY'] ?? 5,
+    'alert_email' => $_ENV['ALERT_EMAIL'] ?? null,
+    'alert_webhook_url' => $_ENV['ALERT_WEBHOOK_URL'] ?? null,
+    'alert_enabled' => !empty($_ENV['ALERT_EMAIL']) || !empty($_ENV['ALERT_WEBHOOK_URL']),
+    'log_level' => $_ENV['LOG_LEVEL'] ?? 'INFO',
+    'log_retention_days' => $_ENV['LOG_RETENTION_DAYS'] ?? 30,
+    'log_dir' => $_ENV['LOG_DIR'] ?? './logs',
+    'timezone' => $_ENV['TIMEZONE'] ?? 'America/Chicago',
+];
+
+// Run application
+$app = new Application($config);
+$app->run();
